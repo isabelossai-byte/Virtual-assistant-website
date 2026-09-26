@@ -40,10 +40,10 @@ export const InteractivePhoto: React.FC<InteractivePhotoProps> = ({
         }}
         className="relative w-[300px] h-[340px] sm:w-[380px] sm:h-[400px] md:w-[440px] md:h-[450px] flex items-end justify-center"
       >
-        {/* Cutout portrait of Makkie at laptop — sitting right in front of the arch */}
+        {/* Portrait of Makkie with foreground parallax & 3D tilt */}
         <img
-          src="/vladi_cutout.png"
-          alt="Makkie — Behind-The-Scenes CEO"
+          src="/makkie_photo.jpeg"
+          alt="Chiamaka 'Makkie' Ossai — Operations Specialist"
           loading="eager"
           decoding="async"
           referrerPolicy="no-referrer"

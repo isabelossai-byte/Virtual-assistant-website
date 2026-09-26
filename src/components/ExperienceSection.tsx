@@ -1,47 +1,51 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase } from 'lucide-react';
 
 interface ExperienceSectionProps {
   onBookCall?: () => void;
 }
 
-interface TimelineExperience {
-  id: string;
-  role: string;
-  company: string;
-  period: string;
-  description: string;
-}
-
-const EXPERIENCES: TimelineExperience[] = [
+const EXPERIENCES = [
   {
-    id: 'lead-ops-va-partner',
-    role: 'Lead Virtual Assistant',
-    company: 'Apex Growth Studio',
-    period: '2022 – Present',
+    id: 'va-freelance',
+    role: 'Virtual Assistant',
+    company: 'Freelance',
+    period: 'Apr 2026 — Present',
+    type: 'Current Role',
     description:
-      'Executive support for company founders. Managing daily email inboxes, coordinating calendars across time zones, and keeping team projects organized and on track.',
+      'Global Virtual Assistant helping founders, CEOs, and creative professionals manage operations, workflows, communication, and AI-powered systems.',
   },
   {
-    id: 'senior-operations-lead',
-    role: 'Operations & Project Assistant',
-    company: 'Vanguard Media',
-    period: '2021 – 2022',
+    id: 'bp-ea-westsons',
+    role: 'Business Partner EA',
+    company: 'Westsons',
+    period: 'Jun 2025 — Jul 2026',
+    type: 'Executive Support',
     description:
-      'Supported daily operations and contractor communications. Documented team workflows and led weekly task check-ins in ClickUp and Asana.',
+      'Supported business operations and executive-level workflows, with a focus on organization and efficient day-to-day management.',
   },
   {
-    id: 'executive-admin-lead',
-    role: 'Executive Assistant',
-    company: 'Horizon Consulting',
-    period: '2020 – 2021',
+    id: 'project-assistant-nb',
+    role: 'Project Assistant',
+    company: 'Nigerian Breweries Plc',
+    period: 'Apr 2022 — Jul 2026',
+    type: 'Corporate Operations',
     description:
-      'Handled executive scheduling, travel bookings, and meeting preparation. Kept shared team drives and company files organized.',
+      'Supported cross-functional teams, customer operations, data management, and problem-solving to improve efficiency and customer experience.',
+  },
+  {
+    id: 'va-grola',
+    role: 'Virtual Assistant',
+    company: 'Grola Executive Solutions',
+    period: 'Nov 2021 — Apr 2022',
+    type: 'Executive Support',
+    description:
+      'Managed calendars, recruitment coordination, confidential documentation, training logistics, and employee onboarding.',
   },
 ];
 
-export const ExperienceSection: React.FC<ExperienceSectionProps> = () => {
+export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onBookCall }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -53,10 +57,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = () => {
           observer.disconnect();
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px',
-      }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
 
     const el = sectionRef.current;
@@ -67,106 +68,101 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = () => {
     };
   }, []);
 
+  const ease = [0.16, 1, 0.3, 1] as const;
+
   return (
     <section
       ref={sectionRef}
       id="experience-section"
-      className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 select-none"
+      className="relative w-full bg-[#faf7f2] py-24 sm:py-32 overflow-hidden select-none border-t border-neutral-200/80"
     >
-      {/* Top Divider matching other sections */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14 sm:mb-20 flex items-center justify-end border-b border-neutral-200/90 pb-4 sm:pb-5"
-      >
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs sm:text-[13px] font-mono uppercase tracking-[0.24em] text-neutral-900 font-bold">
-            Experience
-          </span>
-          <span className="w-2 h-2 rounded-full bg-[#f16738]" />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header (No pill badge, minimal clean typography) */}
+        <div className="max-w-3xl mb-14 sm:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease }}
+          >
+            <h2 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-neutral-900 tracking-tight leading-[1.15]">
+              Experience &{' '}
+              <span className="text-[#f16738]">
+                Track Record
+              </span>
+            </h2>
+            <p className="mt-4 text-neutral-600 font-body text-base sm:text-lg leading-relaxed">
+              A track record of managing operations, coordinating schedules, and keeping projects on track for high-paced leaders.
+            </p>
+          </motion.div>
         </div>
-      </motion.div>
 
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-        transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14 sm:mb-18"
-      >
-        <h2 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] text-neutral-900 tracking-tight leading-[1.12]">
-          Experience &{' '}
-          <span className="relative inline-block">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f16738] via-[#ff7847] to-[#e45220]">
-              Expertise
-            </span>
-          </span>
-        </h2>
-        <p className="mt-4 sm:mt-5 text-neutral-800 font-body text-base sm:text-lg leading-[1.75] max-w-2xl">
-          A track record of managing operations, coordinating schedules, and keeping projects on track for high-paced leaders.
-        </p>
-      </motion.div>
-
-      {/* Vertical Timeline Track & Cards */}
-      <div className="relative pl-7 sm:pl-10">
-        {/* Vertical Terracotta Timeline Line */}
-        <div className="absolute left-[11px] sm:left-[15px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#f16738] via-[#f16738]/80 to-[#f16738]/20" />
-
-        <div className="space-y-6 sm:space-y-8">
-          {EXPERIENCES.map((item, index) => (
-            <motion.div
+        {/* Real Experience Cards (100% verified from Makkie's submission) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, ease }}
+          className="space-y-6"
+        >
+          {EXPERIENCES.map((item) => (
+            <div
               key={item.id}
-              initial={{ opacity: 0, x: -16 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -16 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.15 + index * 0.12,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="relative group"
+              className="rounded-3xl bg-white border border-neutral-200/90 p-6 sm:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:border-[#f16738]/40 transition-all flex flex-col md:flex-row md:items-start justify-between gap-6"
             >
-              {/* Terracotta Node on Timeline */}
-              <div className="absolute -left-[35px] sm:-left-[43px] top-7 w-3.5 h-3.5 rounded-full bg-[#f16738] shadow-[0_0_12px_rgba(241,103,56,0.4)] ring-4 ring-[#faf8f5] z-10 transition-transform duration-300 group-hover:scale-125" />
-
-              {/* Timeline Card */}
-              <div className="relative rounded-2xl bg-white border border-neutral-200/90 hover:border-[#f16738]/40 transition-all duration-300 p-6 sm:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.03)]">
-                {/* Card Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div className="flex items-center gap-3.5">
-                    {/* Terracotta Square Icon */}
-                    <div className="w-10 h-10 rounded-xl bg-[#f16738] text-white flex items-center justify-center font-bold shrink-0 shadow-[0_4px_12px_rgba(241,103,56,0.25)]">
-                      <Briefcase className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-
-                    {/* Job Title & Company */}
-                    <div>
-                      <h3 className="font-heading font-bold text-lg sm:text-xl text-neutral-900 tracking-tight leading-snug">
-                        {item.role}
-                      </h3>
-                      <p className="text-neutral-600 font-body text-xs sm:text-sm mt-0.5">
-                        {item.company}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Date with Calendar Icon */}
-                  <div className="self-start sm:self-center">
-                    <div className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-500 font-medium whitespace-nowrap">
-                      <Calendar className="w-3.5 h-3.5 text-[#f16738]" />
-                      <span>{item.period}</span>
-                    </div>
-                  </div>
+              <div className="max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2.5 mb-2">
+                  <span className="text-xs font-mono uppercase tracking-wider font-bold text-[#f16738]">
+                    {item.type}
+                  </span>
+                  <span className="text-neutral-300">•</span>
+                  <span className="text-xs font-mono text-neutral-500 font-medium">
+                    {item.period}
+                  </span>
                 </div>
 
-                {/* Body Paragraph */}
-                <p className="text-neutral-700 font-body text-sm leading-relaxed mt-4">
+                <h3 className="font-heading font-black text-xl sm:text-2xl text-neutral-900 tracking-tight">
+                  {item.role}
+                </h3>
+                <p className="text-sm font-heading font-bold text-neutral-600 mt-1 mb-3">
+                  {item.company}
+                </p>
+
+                <p className="font-body text-sm sm:text-base text-neutral-700 leading-relaxed">
                   {item.description}
                 </p>
+
               </div>
-            </motion.div>
+
+              <div className="shrink-0 self-start">
+                <div className="w-12 h-12 rounded-2xl bg-[#f16738] text-white flex items-center justify-center font-bold shadow-sm">
+                  <Briefcase className="w-5 h-5 stroke-[2.2]" />
+                </div>
+              </div>
+            </div>
           ))}
+        </motion.div>
+
+        {/* Bottom Banner */}
+        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-neutral-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h4 className="font-heading font-bold text-lg text-white">
+              Need reliable operational support for your team?
+            </h4>
+            <p className="text-neutral-400 font-body text-xs sm:text-sm mt-1">
+              Currently accepting engagements for select founders and agencies.
+            </p>
+          </div>
+
+          {onBookCall && (
+            <button
+              onClick={onBookCall}
+              className="shrink-0 px-6 py-3 rounded-full bg-[#f16738] hover:bg-[#ff7847] text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+            >
+              Get In Touch
+            </button>
+          )}
         </div>
+
       </div>
     </section>
   );

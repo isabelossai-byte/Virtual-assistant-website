@@ -1,273 +1,178 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle2, ArrowRight, ArrowUpRight } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'motion/react';
+import { ArrowRight, Mail, Calendar, Users, Layers, MonitorSmartphone } from 'lucide-react';
 
 interface ServicesSectionProps {
   onSelectService?: (serviceName: string) => void;
   onBookCall?: () => void;
 }
 
-interface ServiceItem {
-  id: string;
-  num: string;
-  title: string;
-  description: string;
-  features: string[];
-}
-
-const SERVICES_DATA: ServiceItem[] = [
+const SERVICES_DATA = [
   {
-    id: 'virtual-assistance',
     num: '01',
-    title: 'Virtual Assistance',
+    icon: Mail,
+    title: 'Inbox & Calendar Management',
     description:
-      'Daily inbox management, meeting updates, email drafts, and following up on important tasks so you can focus on your core work.',
-    features: [
-      'Daily inbox management',
-      'Email and message drafting',
-      'Meeting preparation notes',
-      'Task reminders and follow-ups',
-    ],
+      'Full management of email correspondence and scheduling; sorting, prioritizing, and responding to emails, coordinating meetings, and keeping your calendar conflict-free.',
   },
   {
-    id: 'administrative-assistance',
     num: '02',
-    title: 'Administrative Assistance',
+    icon: Layers,
+    title: 'Project & Pipeline Coordination',
     description:
-      'General back-office organization. Managing invoices and receipts, coordinating with vendors, and keeping company files tidy.',
-    features: [
-      'Invoice and expense records',
-      'Vendor coordination',
-      'File and Google Drive organization',
-      'Process documentation',
-    ],
+      'Setting up and managing project pipelines (e.g., in ClickUp) to track tasks, deadlines, and deliverables across teams and clients, so nothing falls through the cracks.',
   },
   {
-    id: 'appointment-scheduling',
     num: '03',
-    title: 'Appointment Scheduling',
+    icon: Users,
+    title: 'Stakeholder & Client Communications',
     description:
-      'Handling calendar invites across multiple time zones, protecting your focus time, and confirming meeting details.',
-    features: [
-      'Multi-timezone scheduling',
-      'Meeting confirmations and reminders',
-      'Focus time protection',
-      'Travel and itinerary arrangements',
-    ],
+      'Managing day-to-day communication with clients, collaborators, and internal teams, keeping everyone aligned and informed without things getting lost in the noise.',
   },
   {
-    id: 'project-management',
     num: '04',
-    title: 'Project Management',
+    icon: Calendar,
+    title: 'Systems & Process Building',
     description:
-      'Organizing team tasks and deadlines in ClickUp, Asana, or Notion. Setting up boards, tracking progress, and keeping everyone aligned.',
-    features: [
-      'Task boards in ClickUp, Asana & Notion',
-      'Weekly progress check-ins',
-      'Deadline and milestone tracking',
-      'Clear task assignments',
-    ],
+      'Designing internal tools like trackers, directories, and reporting templates that turn scattered processes into repeatable systems your business can rely on.',
+  },
+  {
+    num: '05',
+    icon: MonitorSmartphone,
+    title: 'Operations Support (Multi-Platform)',
+    description:
+      'Hands-on experience working across Google Workspace, ClickUp, Clockify, HoneyBook, and Discord — bringing structure to however your team already operates, without forcing a platform switch.',
   },
 ];
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({
-  onSelectService,
-  onBookCall,
-}) => {
-  const [activeServiceId, setActiveServiceId] = useState<string>('virtual-assistance');
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onBookCall }) => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const activeService =
-    SERVICES_DATA.find((s) => s.id === activeServiceId) || SERVICES_DATA[0];
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); }
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-  const handleBook = (serviceTitle: string) => {
-    if (onSelectService) {
-      onSelectService(serviceTitle);
-    } else if (onBookCall) {
-      onBookCall();
-    }
-  };
+  const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
     <section
+      ref={sectionRef}
       id="services-section"
-      className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 select-none"
+      className="relative w-full bg-[#faf7f2] py-24 sm:py-32 overflow-hidden select-none border-t border-neutral-200/80"
     >
-      {/* Top Divider matching other sections */}
-      <div className="mb-14 sm:mb-20 flex items-center justify-end border-b border-neutral-200/90 pb-4 sm:pb-5">
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs sm:text-[13px] font-mono uppercase tracking-[0.24em] text-neutral-900 font-bold">
-            Services
-          </span>
-          <span className="w-2 h-2 rounded-full bg-[#f16738]" />
-        </div>
-      </div>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      {/* Section Header */}
-      <div className="mb-14 sm:mb-18 max-w-3xl">
-        <h2 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] text-neutral-900 tracking-tight leading-[1.12]">
-          How I Can{' '}
-          <span className="relative inline-block">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f16738] via-[#ff7847] to-[#e45220]">
-              Help You
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease }}
+          className="text-center mb-14 sm:mb-18"
+        >
+          <h2 className="font-heading font-black text-4xl sm:text-5xl md:text-6xl text-neutral-900 tracking-tight">
+            How we work{' '}
+            <span className="bg-[#f16738] text-white px-4 py-1.5 rounded-2xl inline-block transform -rotate-2 shadow-sm">
+              together
             </span>
-          </span>
-        </h2>
+          </h2>
+        </motion.div>
 
-        <p className="mt-4 sm:mt-5 text-neutral-800 font-body text-base sm:text-lg leading-[1.75] max-w-2xl">
-          Reliable administrative and operational support to keep your daily work organized and moving forward smoothly.
-        </p>
-      </div>
+        {/* Bento grid: row 1 → 2 cards, row 2 → 2 cards, row 3 → 1 full-width card */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
 
-      {/* Two-Column Layout: Left Featured Spotlight Card + Right Interactive List */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-        {/* ================= LEFT COLUMN: SPOTLIGHT CARD ================= */}
-        <div className="lg:col-span-5 w-full">
-          <motion.div
-            key={activeService.id}
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl bg-white border border-neutral-200/90 p-7 sm:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-between min-h-[420px]"
-          >
-            {/* Ambient warm glow in corner */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#f16738]/5 rounded-full blur-3xl pointer-events-none" />
-
-            {/* Top row with clean numeral */}
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="font-mono text-sm font-bold text-[#f16738]">
-                {activeService.num}
-              </span>
-            </div>
-
-            {/* Card Body */}
-            <div className="relative z-10 my-auto py-5">
-              <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-neutral-900 tracking-tight">
-                {activeService.title}
-              </h3>
-
-              <p className="mt-3 text-neutral-700 font-body text-sm sm:text-[15px] leading-relaxed">
-                {activeService.description}
-              </p>
-
-              {/* Checklist Items */}
-              <div className="mt-6 space-y-2.5">
-                {activeService.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#f16738] shrink-0" />
-                    <span className="text-xs sm:text-sm text-neutral-800 font-body">
-                      {feat}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Card Bottom: Clean Call to Action Button */}
-            <div className="relative z-10 pt-5 border-t border-neutral-100 flex items-center justify-between">
-              <button
-                onClick={() => handleBook(activeService.title)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#f16738] hover:bg-[#ff7847] text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-[0_4px_14px_rgba(241,103,56,0.25)] cursor-pointer"
-              >
-                <span>Book Session</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ================= RIGHT COLUMN: INTERACTIVE LIST ================= */}
-        <div className="lg:col-span-7 w-full flex flex-col divide-y divide-neutral-200/90">
-          {SERVICES_DATA.map((service) => {
-            const isActive = service.id === activeServiceId;
-
+          {SERVICES_DATA.slice(0, 4).map((service, index) => {
+            const Icon = service.icon;
             return (
-              <div
-                key={service.id}
-                id={`service-row-${service.id}`}
-                className="py-5 sm:py-6 transition-colors"
+              <motion.div
+                key={service.num}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: 0.07 * index, ease }}
+                className="group bg-white rounded-[2rem] p-7 sm:p-9 shadow-[0_10px_32px_rgba(0,0,0,0.05)] border border-neutral-200/80 hover:border-[#f16738]/35 hover:shadow-[0_20px_48px_rgba(241,103,56,0.08)] transition-all duration-300 flex flex-col"
               >
-                {/* Header Row */}
-                <div
-                  onClick={() => setActiveServiceId(service.id)}
-                  className="flex items-center justify-between gap-4 cursor-pointer group"
-                >
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    <span
-                      className={`font-mono text-base font-bold transition-colors ${
-                        isActive ? 'text-[#f16738]' : 'text-neutral-400 group-hover:text-neutral-600'
-                      }`}
-                    >
+                {/* Top row: icon + number */}
+                <div className="flex items-start justify-between mb-6">
+                  <div className="w-11 h-11 rounded-2xl bg-[#f16738]/10 flex items-center justify-center group-hover:bg-[#f16738] transition-colors duration-300">
+                    <Icon className="w-5 h-5 text-[#f16738] group-hover:text-white transition-colors duration-300 stroke-[1.8]" />
+                  </div>
+                  <span className="font-heading font-black text-3xl text-[#f16738]/25 group-hover:text-[#f16738]/50 transition-colors duration-300">
+                    {service.num}
+                  </span>
+                </div>
+
+                <h3 className="font-heading font-black text-xl sm:text-2xl text-neutral-900 tracking-tight mb-3">
+                  {service.title}
+                </h3>
+                <p className="font-body text-neutral-600 text-sm sm:text-[15px] leading-relaxed flex-1">
+                  {service.description}
+                </p>
+              </motion.div>
+            );
+          })}
+
+          {/* 5th card — full width, horizontal layout */}
+          {(() => {
+            const service = SERVICES_DATA[4];
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.num}
+                initial={{ opacity: 0, y: 28 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.65, delay: 0.35, ease }}
+                className="group sm:col-span-2 bg-neutral-900 rounded-[2rem] p-7 sm:p-9 shadow-[0_10px_32px_rgba(0,0,0,0.12)] border border-neutral-800 hover:border-[#f16738]/50 hover:shadow-[0_20px_48px_rgba(241,103,56,0.15)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center gap-7 sm:gap-12"
+              >
+                {/* Left */}
+                <div className="flex items-start gap-5 sm:shrink-0">
+                  <div className="w-11 h-11 rounded-2xl bg-[#f16738]/15 flex items-center justify-center group-hover:bg-[#f16738] transition-colors duration-300 shrink-0">
+                    <Icon className="w-5 h-5 text-[#f16738] group-hover:text-white transition-colors duration-300 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <span className="font-heading font-black text-3xl text-[#f16738]/30 group-hover:text-[#f16738]/60 transition-colors duration-300 block leading-none mb-2">
                       {service.num}
                     </span>
-
-                    <h3
-                      className={`font-heading font-bold text-xl sm:text-2xl tracking-tight transition-colors ${
-                        isActive ? 'text-neutral-900' : 'text-neutral-700 group-hover:text-neutral-900'
-                      }`}
-                    >
+                    <h3 className="font-heading font-black text-xl sm:text-2xl text-white tracking-tight">
                       {service.title}
                     </h3>
                   </div>
-
-                  {/* Right Icon Button */}
-                  <div className="shrink-0">
-                    {isActive ? (
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#f16738] text-white flex items-center justify-center shadow-[0_4px_14px_rgba(241,103,56,0.3)]">
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    ) : (
-                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white border border-neutral-300 text-neutral-500 group-hover:text-neutral-900 group-hover:border-neutral-400 flex items-center justify-center transition-all shadow-2xs">
-                        <ArrowUpRight className="w-4 h-4" />
-                      </div>
-                    )}
-                  </div>
                 </div>
 
-                {/* Expanded Content when active */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 pl-9 sm:pl-12">
-                        <p className="text-neutral-700 font-body text-sm leading-relaxed max-w-xl">
-                          {service.description}
-                        </p>
+                {/* Divider */}
+                <div className="hidden sm:block w-px self-stretch bg-white/10" />
 
-                        {/* 2-column checklist grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
-                          {service.features.map((item, fIdx) => (
-                            <div key={fIdx} className="flex items-center gap-2">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#f16738] shrink-0" />
-                              <span className="text-xs sm:text-[13px] text-neutral-800 font-body">
-                                {item}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Text Link Call to Action */}
-                        <div className="mt-5">
-                          <button
-                            onClick={() => handleBook(service.title)}
-                            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#f16738] hover:text-[#d84717] hover:underline cursor-pointer"
-                          >
-                            <span>Book {service.title}</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                {/* Right */}
+                <p className="font-body text-neutral-400 text-sm sm:text-[15px] leading-relaxed flex-1">
+                  {service.description}
+                </p>
+              </motion.div>
             );
-          })}
+          })()}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.45, ease }}
+          className="mt-12 sm:mt-14 text-center"
+        >
+          <button
+            onClick={() => onBookCall?.()}
+            className="px-8 py-3.5 rounded-full bg-[#f16738] hover:bg-[#ff7847] text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer inline-flex items-center gap-2"
+          >
+            <span>Work With Makkie</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
+
       </div>
     </section>
   );

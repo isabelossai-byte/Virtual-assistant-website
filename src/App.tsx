@@ -120,8 +120,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] text-[#141414] flex flex-col justify-between selection:bg-[#f16738]/20 selection:text-[#f16738] overflow-x-hidden">
-      {/* Top Floating Dark Pill Navigation in sequence */}
+    <div className="min-h-screen bg-[#0A0118] text-[#141414] flex flex-col justify-between selection:bg-[#f16738]/20 selection:text-[#f16738] overflow-x-hidden">
+      {/* Top Floating Dark Navigation */}
       <MinimalHeader
         onHireMe={handleContactClick}
         onServicesClick={handleServicesClick}

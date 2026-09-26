@@ -8,12 +8,11 @@ interface AboutSectionProps {
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({
-  onExploreServices,
+  onBookCall,
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Native Intersection Observer for subtle scroll-triggered fade-in
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -22,213 +21,118 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           observer.disconnect();
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px',
-      }
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
 
     const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
+
+  const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
     <section
       ref={sectionRef}
       id="about-section"
-      className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 select-none"
+      className="relative w-full bg-[#faf7f2] py-24 sm:py-32 overflow-hidden select-none border-t border-neutral-200/80"
     >
-      {/* Sleek Top Divider with Right-Aligned "The Story" Marker */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14 sm:mb-20 flex items-center justify-end border-b border-neutral-200/90 pb-4 sm:pb-5"
-      >
-        {/* Right-aligned "The Story" */}
-        <div className="flex items-center gap-2.5">
-          <span className="text-xs sm:text-[13px] font-mono uppercase tracking-[0.24em] text-neutral-900 font-bold">
-            The Story
-          </span>
-          <span className="w-2 h-2 rounded-full bg-[#f16738]" />
-        </div>
-      </motion.div>
-
-      {/* Two-Column Split Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ================= LEFT COLUMN: SCULPTURAL ARCH PORTRAIT ================= */}
-        <motion.div
-          id="about-photo-column"
-          initial={{ opacity: 0, y: 24 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 flex flex-col items-center justify-center relative"
-        >
-          {/* Main Visual Composition Arch Silhouette */}
-          <div className="relative w-full max-w-[320px] sm:max-w-[370px] flex items-end justify-center">
-            
-            {/* Subtle warm backlight diffusion */}
-            <div className="absolute inset-0 bg-[#f16738]/15 blur-3xl rounded-full transform -translate-y-4 scale-95 pointer-events-none -z-10" />
-
-            {/* Delicate decorative hairline arc offset behind */}
-            <div className="absolute -inset-2.5 rounded-t-full rounded-b-[3rem] border border-[#f16738]/20 pointer-events-none -z-10 transform -rotate-1" />
-
-            {/* Architectural Arch Canvas with warm terracotta tone */}
-            <div className="relative w-full aspect-[4/5] rounded-t-full rounded-b-[2.5rem] sm:rounded-b-[2.75rem] bg-gradient-to-b from-[#f16738] via-[#e24e1c] to-[#b83811] shadow-[0_24px_55px_rgba(241,103,56,0.28)] ring-1 ring-white/20 overflow-hidden flex items-end justify-center">
+        {/* Two-Column Grid matching Screenshot 2 */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* LEFT: Portrait Card (matching screenshot 2) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={isVisible ? { opacity: 1, scale: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease }}
+            className="lg:col-span-5 flex flex-col items-center"
+          >
+            <div className="w-full max-w-[380px] bg-white rounded-[2rem] p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-neutral-200/80">
               
-              {/* Subtle top rim highlight */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-              
-              {/* Inner ambient vignette */}
-              <div className="absolute -top-12 inset-x-0 h-44 bg-radial from-white/25 to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-
-              {/* Working Photo of Makkie at laptop */}
-              <div className="relative z-10 w-full h-full flex items-end justify-center">
+              {/* Photo */}
+              <div className="aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#eedbd0]">
                 <img
-                  src="/vladi_cutout.png"
-                  alt="Makkie working at laptop"
-                  referrerPolicy="no-referrer"
-                  draggable={false}
-                  className="w-[94%] sm:w-[90%] h-auto max-h-[97%] object-contain object-bottom drop-shadow-[0_22px_32px_rgba(0,0,0,0.38)] filter contrast-[1.02]"
+                  src="/makkie_photo.jpeg"
+                  alt="Chiamaka 'Makkie' Ossai"
+                  className="w-full h-full object-cover object-top filter contrast-[1.02]"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                  }}
                 />
               </div>
-            </div>
-          </div>
-        </motion.div>
 
-        {/* ================= RIGHT COLUMN: EDITORIAL NARRATIVE ================= */}
-        <div
-          id="about-content-column"
-          className="lg:col-span-7 flex flex-col justify-start text-left max-w-2xl"
-        >
-          {/* Main Headline: "From Chaos to Clockwork" */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mb-6 sm:mb-8"
-          >
-            <h3
-              id="about-heading"
-              className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] text-neutral-900 tracking-tight leading-[1.12]"
-            >
-              From Chaos to{' '}
-              <span className="relative inline-block">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f16738] via-[#ff7847] to-[#e45220]">
-                  Clockwork
-                </span>
-                
-                {/* Hand-drawn organic swoosh underline matching hero section */}
-                <svg
-                  className="absolute -bottom-1.5 sm:-bottom-2 left-0 w-full h-2.5 sm:h-3 text-[#f16738] overflow-visible pointer-events-none"
-                  viewBox="0 0 100 20"
-                  fill="none"
-                  preserveAspectRatio="none"
-                >
-                  <motion.path
-                    d="M 2 14 Q 50 2, 98 12"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-                    transition={{ duration: 1.1, delay: 0.35, ease: 'easeOut' }}
-                  />
-                </svg>
-              </span>
-            </h3>
+              {/* Caption under photo */}
+              <div className="pt-5 pb-2 text-left">
+                <h3 className="font-heading font-black text-xl text-neutral-900 tracking-tight">
+                  Chiamaka Ossai
+                </h3>
+                <p className="text-sm font-body text-neutral-500 mt-0.5">
+                  Operations Specialist
+                </p>
+              </div>
+
+            </div>
           </motion.div>
 
-          {/* Body Copy (Consistent rich contrast, generous line spacing, gentle scroll fade) */}
-          <div
-            id="about-body-copy"
-            className="font-body text-neutral-900 text-base sm:text-[17px] leading-[1.8] sm:leading-[1.85] space-y-4 sm:space-y-5"
-          >
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-              transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-              className="text-neutral-900"
-            >
-              Most founders don't lose money because their offer is bad or their marketing is broken. They lose it because nobody's holding the operation together — emails pile up, leads go cold, and clients get tired of chasing answers.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-              transition={{ duration: 0.65, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              className="text-neutral-900"
-            >
-              I saw this firsthand with a creative agency founder in New York. Brilliant at his craft, but his backend was a full-blown disaster — leads disappearing, inbox chaos, a ClickUp board nobody had touched in months.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-              transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className="text-neutral-900"
-            >
-              I stepped in, built the inbox system from scratch, cleaned up the pipeline, and got client communication running like clockwork. Every stakeholder heard from us, on time, every time.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-              transition={{ duration: 0.65, delay: 0.40, ease: [0.16, 1, 0.3, 1] }}
-              className="text-neutral-900"
-            >
-              By the third week, opportunities that used to slip through the cracks were converting. Revenue went up. I even revived a lead he'd written off from Google. He finally had the space to run his business again.
-            </motion.p>
-          </div>
-
-          {/* Pull-Quote: Timeless Editorial Highlight (Pure typography with accent left border) */}
-          <motion.blockquote
-            id="about-pull-quote"
-            initial={{ opacity: 0, x: -10 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-            transition={{ duration: 0.7, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
-            className="my-7 sm:my-8 pl-5 sm:pl-6 border-l-2 border-[#f16738] py-1"
-          >
-            <p className="font-heading font-extrabold text-xl sm:text-2xl text-neutral-900 tracking-tight leading-snug">
-              &ldquo;Within 3 weeks, leads that used to vanish were converting.&rdquo;
-            </p>
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#f16738] font-semibold mt-2 block">
-              — Verified Turnaround Result
-            </span>
-          </motion.blockquote>
-
-          {/* Closing Transition Line */}
+          {/* RIGHT: Editorial Narrative (matching screenshot 2) */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-            transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15, ease }}
+            className="lg:col-span-7 flex flex-col justify-center"
           >
-            <p
-              id="about-closing-line"
-              className="font-heading font-bold text-lg sm:text-xl text-neutral-900 leading-snug tracking-tight"
-            >
-              That's what I do. I handle the infrastructure — so you can stop putting out fires and start building.
-            </p>
+            {/* Headline matching screenshot 2 with badge */}
+            <h2 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-neutral-900 tracking-tight leading-[1.08] mb-6">
+              <span className="bg-[#f16738] text-white px-3.5 py-1 rounded-xl inline-block mr-2 font-black">
+                More
+              </span>
+              than an Executive Assistant.
+            </h2>
 
-            {onExploreServices && (
-              <button
-                onClick={onExploreServices}
-                className="mt-3.5 inline-flex items-center gap-1.5 text-xs sm:text-sm font-heading font-semibold text-[#f16738] hover:text-[#d84819] transition-colors cursor-pointer group"
+            {/* Narrative text (Makkie's real information) */}
+            <div className="space-y-4 font-body text-neutral-700 text-base sm:text-lg leading-[1.85]">
+              <p>
+                Hi, I'm <strong className="text-neutral-900 font-bold">Chiamaka</strong> — but you can call me <strong className="text-[#f16738] font-bold">Makkie</strong>. I'm an Executive Assistant and Operations Manager based in Lagos, Nigeria, holding a Master's degree in Information Management.
+              </p>
+              <p>
+                I currently support a <span className="text-neutral-900 font-semibold">multi-client creative agency</span> as EA/Ops Manager — taking complete ownership of inboxes, calendars, meeting cadences, client pipelines, and internal tracking systems so leadership can focus entirely on high-value growth.
+              </p>
+              <p>
+                From coordinating complex schedules to architecting workspaces in ClickUp, HoneyBook, Google Workspace, and Discord — I specialize in transforming scattered operational chaos into clear, repeatable systems that fast-moving teams can count on.
+              </p>
+            </div>
+
+            {/* Action Buttons matching screenshot 2 */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              {onBookCall && (
+                <button
+                  onClick={onBookCall}
+                  className="px-8 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2"
+                >
+                  <span>Work With Makkie</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
+
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-7 py-3.5 rounded-full border border-[#0077b5] text-[#0077b5] hover:bg-[#0077b5]/5 font-heading font-bold text-xs tracking-wider transition-all flex items-center gap-2 shadow-xs"
               >
-                <span>Explore how I execute this across your business</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
-              </button>
-            )}
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />
+                </svg>
+                <span>Find me on LinkedIn</span>
+              </a>
+            </div>
+
           </motion.div>
 
         </div>

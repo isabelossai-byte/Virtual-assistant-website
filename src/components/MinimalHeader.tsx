@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface MinimalHeaderProps {
   onHireMe: () => void;
@@ -66,17 +67,14 @@ export const MinimalHeader: React.FC<MinimalHeaderProps> = ({
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -18 }}
+      initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 w-full px-3 sm:px-6 pt-3.5 sm:pt-5 pb-2.5 z-50 flex justify-center pointer-events-none"
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="sticky top-0 w-full z-50 bg-[#0A0118]/90 backdrop-blur-xl border-b border-white/10"
     >
-      {/* Floating Dark Glassmorphic Nav Bar */}
-      <nav
-        id="main-nav-pill"
-        className="pointer-events-auto w-full max-w-4xl bg-[#0e1013]/92 backdrop-blur-2xl text-white px-3 sm:px-4 py-2 rounded-full shadow-[0_16px_40px_rgba(0,0,0,0.25),0_1px_0_rgba(255,255,255,0.08)_inset] border border-neutral-800/90 flex items-center justify-between gap-2 sm:gap-4 transition-all duration-300"
-      >
-        {/* 1. Left: Brand Mark & Monogram */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+        
+        {/* 1. Left: Brand Mark (Clean, crisp, no blurry glow) */}
         <button
           id="nav-brand-logo"
           onClick={() => {
@@ -84,31 +82,27 @@ export const MinimalHeader: React.FC<MinimalHeaderProps> = ({
               window.scrollTo({ top: 0, behavior: 'smooth' });
             });
           }}
-          className="flex items-center gap-2 sm:gap-2.5 pl-1 pr-2 py-1 rounded-full hover:bg-white/[0.04] transition-colors cursor-pointer group flex-shrink-0"
+          className="flex items-center gap-3 py-1 rounded-lg hover:opacity-90 transition-opacity cursor-pointer group flex-shrink-0"
         >
-          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#f16738] via-[#e5592a] to-[#c94519] flex items-center justify-center text-white font-extrabold text-xs sm:text-sm shadow-[0_2px_10px_rgba(241,103,56,0.35)] group-hover:scale-105 transition-transform duration-200">
-            <span className="font-heading font-black tracking-tight text-[11px] sm:text-xs">
-              M
-            </span>
-            <span className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent to-white/30 pointer-events-none" />
+          {/* Crisp Monogram (Clean, no glow shade) */}
+          <div className="w-8 h-8 rounded-full bg-[#f16738] flex items-center justify-center text-white font-heading font-black text-xs tracking-tight">
+            M
           </div>
 
           <div className="flex flex-col text-left">
-            <div className="flex items-center gap-1.5">
-              <span className="font-heading font-black text-xs sm:text-sm tracking-[0.16em] text-white uppercase group-hover:text-[#ff8255] transition-colors">
-                MAKKIE
-              </span>
-            </div>
-            <span className="hidden md:block text-[9px] font-mono uppercase tracking-wider text-neutral-400 -mt-0.5">
-              Behind-The-Scenes CEO
+            <span className="font-heading font-black text-sm tracking-[0.16em] text-white uppercase group-hover:text-[#f16738] transition-colors">
+              MAKKIE
+            </span>
+            <span className="hidden md:block text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400 font-medium -mt-0.5">
+              Operations Specialist
             </span>
           </div>
         </button>
 
-        {/* 2. Center: Sequence of Navigation Items */}
+        {/* 2. Center: Clean Navigation Links */}
         <div
           id="nav-sequential-links"
-          className="flex items-center gap-0.5 sm:gap-1 bg-white/[0.03] p-1 rounded-full border border-white/[0.05]"
+          className="flex items-center gap-1 bg-white/[0.04] p-1 rounded-full border border-white/[0.08]"
         >
           {navLinks.map((item) => {
             const isActive = activeTab === item.id;
@@ -117,7 +111,7 @@ export const MinimalHeader: React.FC<MinimalHeaderProps> = ({
                 key={item.id}
                 id={`nav-${item.id.toLowerCase()}-btn`}
                 onClick={() => handleNavClick(item.id, item.action)}
-                className={`relative px-2.5 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-colors duration-200 cursor-pointer ${
+                className={`relative px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-medium transition-colors duration-200 cursor-pointer ${
                   !item.showOnMobile ? 'hidden md:inline-flex' : 'inline-flex'
                 } ${
                   isActive
@@ -125,11 +119,10 @@ export const MinimalHeader: React.FC<MinimalHeaderProps> = ({
                     : 'text-neutral-300 hover:text-white hover:bg-white/[0.06]'
                 }`}
               >
-                {/* Animated sliding background pill */}
                 {isActive && (
                   <motion.div
                     layoutId="navbar-active-indicator"
-                    className="absolute inset-0 bg-[#f16738] rounded-full shadow-[0_2px_12px_rgba(241,103,56,0.38)] -z-10"
+                    className="absolute inset-0 bg-[#f16738] rounded-full -z-10"
                     transition={{
                       type: 'spring',
                       stiffness: 400,
@@ -143,21 +136,19 @@ export const MinimalHeader: React.FC<MinimalHeaderProps> = ({
           })}
         </div>
 
-        {/* 3. Right: High-Impact "Say Hi 👋" CTA Button */}
+        {/* 3. Right: High-Impact "Contact Me" CTA Button */}
         <div className="flex items-center flex-shrink-0">
           <button
             id="nav-contact-btn"
             onClick={onHireMe}
-            className="group relative px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full font-heading font-semibold text-xs sm:text-[13px] text-white bg-gradient-to-r from-[#f16738] via-[#f27448] to-[#e05220] hover:from-[#f37c52] hover:to-[#ea5c2b] shadow-[0_3px_14px_rgba(241,103,56,0.35),0_1px_0_rgba(255,255,255,0.25)_inset] transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-1.5"
+            className="group relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-heading font-bold text-xs uppercase tracking-wider text-white bg-[#f16738] hover:bg-[#ff7847] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-1.5"
           >
-            <span>Say Hi</span>
-            <span className="inline-block transform group-hover:rotate-12 transition-transform duration-200 text-sm">
-              👋
-            </span>
+            <span>Contact Me</span>
+            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
         </div>
-      </nav>
+
+      </div>
     </motion.header>
   );
 };
-
