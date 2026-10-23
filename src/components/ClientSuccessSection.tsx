@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const TESTIMONIALS = [
   {
-    id: 'steve-lucin',
-    name: 'Steve Lucin',
-    role: 'CEO · Halucinated Studios',
-    initials: 'SL',
+    id: 'steve-ortiz',
+    name: 'Steve Ortiz',
+    role: 'Creative Director & Founder · New York-based Studio',
+    initials: 'SO',
     review:
       "Ever since Makkie joined, things have gotten so much smoother. I'm genuinely glad she was brought on board. The way she keeps everything organized and on track has made a real difference to how we operate day to day.",
   },

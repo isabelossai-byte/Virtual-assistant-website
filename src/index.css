@@ -9,18 +9,27 @@
   html {
     scroll-behavior: smooth;
     text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   html, body {
     margin: 0;
     padding: 0;
-    background-color: #faf8f5;
+    background-color: #0A0118;
     color: #171717;
     font-family: 'Nunito', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  /* Prevent automatic iOS Safari zoom-in on input focus */
+  @media screen and (max-width: 767px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
@@ -32,7 +41,7 @@
   font-family: 'Nunito', sans-serif;
 }
 
-/* GPU Compositor Accelerated Infinite Carousel */
+/* GPU Compositor Accelerated Marquee & Animations */
 @keyframes infiniteScroll {
   0% {
     transform: translate3d(0, 0, 0);
@@ -49,6 +58,7 @@
   animation: infiniteScroll 42s linear infinite;
   backface-visibility: hidden;
   perspective: 1000px;
+  transform: translate3d(0, 0, 0);
 }
 
 .animate-infinite-scroll:hover {
@@ -62,4 +72,11 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* High performance utility for transform layers */
+.gpu-layer {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
 }

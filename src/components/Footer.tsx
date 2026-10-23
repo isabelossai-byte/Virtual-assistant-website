@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
             )}
 
             <a
-              href="https://wa.me/2349030241399"
+              href="https://wa.me/2348187928302"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-heading font-bold text-xs uppercase tracking-wider border border-white/15 transition-all"
@@ -82,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </span>
               </div>
               <p className="font-body text-xs sm:text-sm text-neutral-400 mt-3 leading-relaxed max-w-sm">
-                Executive Assistant & Operations Manager based in Lagos, Nigeria. Helping founders and small teams stay organized, on schedule, and stress-free.
+                Executive Assistant & Operations Manager. Helping founders and small teams stay organized, on schedule, and stress-free.
               </p>
             </div>
 
@@ -95,13 +95,13 @@ export const Footer: React.FC<FooterProps> = ({
                 <span>makkieisabel@gmail.com</span>
               </a>
               <a
-                href="https://wa.me/2349030241399"
+                href="https://wa.me/2348187928302"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-heading font-semibold text-neutral-300 hover:text-[#25D366] transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                <span>+234 903 024 1399</span>
+                <span>+234 818 792 8302</span>
               </a>
             </div>
           </div>
@@ -212,18 +212,16 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Col 4: Location & Availability */}
+          {/* Col 4: Support Scope */}
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
               <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-neutral-200 mb-4">
-                Location
+                Support
               </h4>
               <p className="font-body text-xs text-neutral-400 leading-relaxed">
-                Lagos, Nigeria (WAT)
-                <br />
-                Mon – Fri: 9am – 6pm
-                <br />
                 Remote & Global Support
+                <br />
+                Available Worldwide
               </p>
             </div>
 
@@ -245,12 +243,12 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="border-t border-white/10 py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-body text-neutral-500">
           <div>
-            © {currentYear} Chiamaka "Makkie" Ossai. All rights reserved.
+            © {currentYear} Makkie. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/chiamaka-ossai/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-neutral-300 transition-colors inline-flex items-center gap-1"
@@ -259,7 +257,7 @@ export const Footer: React.FC<FooterProps> = ({
               <ArrowUpRight className="w-3 h-3 text-neutral-600" />
             </a>
             <a
-              href="https://wa.me/2349030241399"
+              href="https://wa.me/2348187928302"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#25D366] transition-colors inline-flex items-center gap-1"
@@ -274,6 +272,22 @@ export const Footer: React.FC<FooterProps> = ({
               Say Hi 👋
             </button>
           </div>
+        </div>
+
+        {/* Built by Ali Hassan */}
+        <div className="mt-3 text-center sm:text-right max-w-6xl mx-auto">
+          <span className="text-neutral-600 text-[11px] font-body">
+            Designed &amp; Built by{' '}
+            <a
+              href="https://www.linkedin.com/in/ali-hassan-16a5682b7/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-[#f16738] transition-colors font-semibold inline-flex items-center gap-0.5"
+            >
+              Ali Hassan
+              <ArrowUpRight className="w-2.5 h-2.5" />
+            </a>
+          </span>
         </div>
       </div>
     </footer>

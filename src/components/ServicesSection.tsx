@@ -41,7 +41,7 @@ const SERVICES_DATA = [
     icon: MonitorSmartphone,
     title: 'Operations Support (Multi-Platform)',
     description:
-      'Hands-on experience working across Google Workspace, ClickUp, Clockify, HoneyBook, and Discord — bringing structure to however your team already operates, without forcing a platform switch.',
+      'Hands-on experience working across ClickUp, Notion, Zapier, HoneyBook, and Discord — bringing structure to however your team already operates, without forcing a platform switch.',
   },
 ];
 

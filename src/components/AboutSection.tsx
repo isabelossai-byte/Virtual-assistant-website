@@ -38,22 +38,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
     <section
       ref={sectionRef}
       id="about-section"
-      className="relative w-full bg-[#faf7f2] py-24 sm:py-32 overflow-hidden select-none border-t border-neutral-200/80"
+      className="relative w-full bg-[#faf7f2] py-20 sm:py-32 overflow-hidden select-none border-t border-neutral-200/80"
     >
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Two-Column Grid matching Screenshot 2 */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          {/* LEFT: Portrait Card (matching screenshot 2) */}
+
+        {/* Two-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+          {/* LEFT: Portrait Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={isVisible ? { opacity: 1, scale: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease }}
             className="lg:col-span-5 flex flex-col items-center"
           >
-            <div className="w-full max-w-[380px] bg-white rounded-[2rem] p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-neutral-200/80">
-              
+            <div className="w-full max-w-[340px] sm:max-w-[380px] bg-white rounded-[2rem] p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-neutral-200/80 hover:shadow-[0_28px_64px_rgba(0,0,0,0.1)] transition-shadow duration-500">
+
               {/* Photo */}
               <div className="aspect-[4/5] w-full rounded-2xl overflow-hidden bg-[#eedbd0]">
                 <img
@@ -87,33 +87,33 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             transition={{ duration: 0.8, delay: 0.15, ease }}
             className="lg:col-span-7 flex flex-col justify-center"
           >
-            {/* Headline matching screenshot 2 with badge */}
-            <h2 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl text-neutral-900 tracking-tight leading-[1.08] mb-6">
+            {/* Headline */}
+            <h2 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-neutral-900 tracking-tight leading-[1.08] mb-5 sm:mb-6">
               <span className="bg-[#f16738] text-white px-3.5 py-1 rounded-xl inline-block mr-2 font-black">
                 More
               </span>
               than an Executive Assistant.
             </h2>
 
-            {/* Narrative text (Makkie's real information) */}
-            <div className="space-y-4 font-body text-neutral-700 text-base sm:text-lg leading-[1.85]">
+            {/* Narrative text */}
+            <div className="space-y-4 font-body text-neutral-700 text-sm sm:text-base md:text-lg leading-[1.8] sm:leading-[1.85]">
               <p>
-                Hi, I'm <strong className="text-neutral-900 font-bold">Chiamaka</strong> — but you can call me <strong className="text-[#f16738] font-bold">Makkie</strong>. I'm an Executive Assistant and Operations Manager based in Lagos, Nigeria, holding a Master's degree in Information Management.
+                Hi, I'm <strong className="text-[#f16738] font-bold">Makkie</strong>. I'm an Executive Assistant and Operations Manager specializing in systems, calendar architecture, and workflow coordination for fast-moving founders and creative teams.
               </p>
               <p>
                 I currently support a <span className="text-neutral-900 font-semibold">multi-client creative agency</span> as EA/Ops Manager — taking complete ownership of inboxes, calendars, meeting cadences, client pipelines, and internal tracking systems so leadership can focus entirely on high-value growth.
               </p>
               <p>
-                From coordinating complex schedules to architecting workspaces in ClickUp, HoneyBook, Google Workspace, and Discord — I specialize in transforming scattered operational chaos into clear, repeatable systems that fast-moving teams can count on.
+                From coordinating complex schedules to architecting workspaces in ClickUp, Notion, Zapier, HoneyBook, and Discord — I specialize in transforming scattered operational chaos into clear, repeatable systems that fast-moving teams can count on.
               </p>
             </div>
 
-            {/* Action Buttons matching screenshot 2 */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            {/* Action Buttons */}
+            <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
               {onBookCall && (
                 <button
                   onClick={onBookCall}
-                  className="px-8 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2"
+                  className="px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-heading font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2 touch-manipulation active:scale-[0.98]"
                 >
                   <span>Work With Makkie</span>
                   <ArrowRight className="w-4 h-4" />
@@ -121,10 +121,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               )}
 
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/chiamaka-ossai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-7 py-3.5 rounded-full border border-[#0077b5] text-[#0077b5] hover:bg-[#0077b5]/5 font-heading font-bold text-xs tracking-wider transition-all flex items-center gap-2 shadow-xs"
+                className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full border border-[#0077b5] text-[#0077b5] hover:bg-[#0077b5]/8 font-heading font-bold text-xs tracking-wider transition-all flex items-center gap-2 touch-manipulation active:scale-[0.98]"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />

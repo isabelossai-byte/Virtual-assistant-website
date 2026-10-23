@@ -10,12 +10,15 @@ export interface CaseStudy {
   accentNote: string;
 }
 
-export interface BookingFormState {
+export interface InquiryFormState {
   fullName: string;
-  workEmail: string;
-  startupName: string;
-  stage: 'Idea / Pre-seed' | 'Seed' | 'Series A' | 'Bootstrapped';
-  primaryNeed: '0-to-1 MVP' | 'Fundraising Pitch & Demo' | 'Design System' | 'Growth Redesign';
-  preferredDate: string;
+  email: string;
+  phone: string;
+  service: string;
+  description: string;
+  budget: string;
+  timeline: string;
   notes: string;
 }
+
+export interface BookingFormState extends InquiryFormState {}
